@@ -409,7 +409,8 @@ class GameState {
 	private GameState(Game game) {
 		mGame = game;
 		mIsRun = true;//将游戏状态设置成开
-		mImage = Bitmap.createBitmap(400, 200, Config.ARGB_8888);
+		mY = 300;
+		mImage = Bitmap.createBitmap(Game.WIDTH, 100, Config.ARGB_8888);
 		mCanvas = new Canvas(mImage);
 		mPaint = new Paint();
 		mPaint.setColor(Color.RED);
@@ -432,8 +433,24 @@ class GameState {
 	
 	public void update() {
 		mCanvas.drawColor(Color.GREEN, Mode.CLEAR);
-		String showText = String.format("当前屁量 %s", mGame.mRightPerson.getCurrentPi());
-		mCanvas.drawText(showText, 100, 100, mPaint);
+		mPaint.setColor(Color.argb(200, 255, 20, 20));
+		float tX = 0;
+		float tY = 0;
+		float tW = 5;
+		float tH = 0;
+		for (int i = 0; i < 100; i++) {
+			tX = 20 + i * tW;
+			tY = 70 - (i/2);
+			tH = 15 + (i / 2);
+			if (mGame.mRightPerson.getCurrentPi() < i) {
+				mPaint.setColor(Color.argb(150, 100, 100, 100));
+			}
+			mCanvas.drawRect(tX, tY, tX + tW, tY + tH, mPaint);
+		}
+		mPaint.setTextSize(24f);
+		mPaint.setColor(Color.BLACK);
+		String showText = String.format("你已经憋了 %s毫升的屁，再不放就憋死了", mGame.mRightPerson.getCurrentPi() - 1);
+		mCanvas.drawText(showText, 55, 70, mPaint);
 	}
 }
 
