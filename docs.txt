@@ -1,0 +1,8 @@
+# Android开发中如何设置捕捉触摸事件
+Activity子类中重写onTouchEvent方法
+如：
+@Override
+public boolean onTouchEvent(MotionEvent event) {
+    Log.v("a", event.getAction() == MotionEvent.ACTION_DOWN ? "手指按下事件");
+    Log.v("a", event.getAction() == MotionEvent.ACTION_UP ? "手指弹起事件");
+}
