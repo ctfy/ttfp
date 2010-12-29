@@ -1,37 +1,43 @@
 package com.ttfp;
 
-import java.security.spec.MGF1ParameterSpec;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Random;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.view.View.OnClickListener;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.Bitmap.Config;
 import android.graphics.PorterDuff.Mode;
 import android.os.Bundle;
-import android.provider.ContactsContract.Contacts.Data;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 public class GameAcitivy extends Activity {
+	public static int SCREEN_WIDTH;
+	public static int SCREEN_HEIGHT;
 	public static final int MENU_NEW_GAME = 0;//新游戏
 	public static final int MENU_QUIT = 1;//退出
 	
     private Game game;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);  
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,   
+        WindowManager.LayoutParams.FLAG_FULLSCREEN);  
+        SCREEN_WIDTH = this.getWindowManager().getDefaultDisplay().getWidth();
+        SCREEN_HEIGHT = this.getWindowManager().getDefaultDisplay().getHeight();
         game = new Game(this);
         setContentView(game);
     }
@@ -104,6 +110,10 @@ class Game extends View {
         WIDTH = 547;
         HEIGHT = 397;
         
+        mViewBmp = Bitmap.createBitmap(WIDTH, HEIGHT, Config.ARGB_8888);
+    	mViewCanvas = new Canvas(mViewBmp);
+    	
+        
         mBitmapLib = BitmapLib.createBitmapLib(context);
         
         mBackground = mBitmapLib.background;
@@ -165,7 +175,7 @@ class Game extends View {
 			while (mGameState.mIsRun) {
 				postInvalidate();
 				try {
-					Thread.sleep(30);
+					Thread.sleep(50);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -173,34 +183,41 @@ class Game extends View {
 		}
 	};
 	
-	public void onDraw(Canvas canvas) {
-		canvas.drawColor(Color.BLACK);
+	Bitmap mViewBmp;
+	Canvas mViewCanvas;
+	public void onDraw(Canvas canvas2) {
+		
+		
+		mViewCanvas.drawColor(Color.BLACK);
 		//画背景
-		canvas.drawBitmap(mBackground, 0f, 0f, null);
+		mViewCanvas.drawBitmap(mBackground, 0f, 0f, null);
 		//第一排车
 		ArrayList<Car> cars = mLeftJiaoTong.getCars();
 		
 		Car tmpCar = null;
 		for (int i = 0; i < cars.size(); i++) {
 			tmpCar = cars.get(i);
-			canvas.drawBitmap(tmpCar.mImage, tmpCar.mX, tmpCar.mY, null);
+			mViewCanvas.drawBitmap(tmpCar.mImage, tmpCar.mX, tmpCar.mY, null);
 		}
 		//第二排车
 		cars = mRightJiaoTong.getCars();
 		for (int i = 0; i < cars.size(); i++) {
 			tmpCar = cars.get(i);
-			canvas.drawBitmap(tmpCar.mImage, tmpCar.mX, tmpCar.mY, null);
+			mViewCanvas.drawBitmap(tmpCar.mImage, tmpCar.mX, tmpCar.mY, null);
 		}
 		//画第二层背景
-		canvas.drawBitmap(mBackground2, 0f, 0f, null);
+		mViewCanvas.drawBitmap(mBackground2, 0f, 0f, null);
 		//画人物1
-		canvas.drawBitmap(mLeftPerson.getImage(), mLeftPerson.mX, mLeftPerson.mY, null);
+		mViewCanvas.drawBitmap(mLeftPerson.getImage(), mLeftPerson.mX, mLeftPerson.mY, null);
 		//画人物2
-		canvas.drawBitmap(mRightPerson.getImage(), mRightPerson.mX, mRightPerson.mY, null);
+		mViewCanvas.drawBitmap(mRightPerson.getImage(), mRightPerson.mX, mRightPerson.mY, null);
 		//画游戏状态		
-		canvas.drawBitmap(mGameState.getImage(), mGameState.mX, mGameState.mY, null);
+		mViewCanvas.drawBitmap(mGameState.getImage(), mGameState.mX, mGameState.mY, null);
+
+		Rect tSrc = new Rect(0, 0, WIDTH, HEIGHT);
+		Rect tDst = new Rect(0, 0, GameAcitivy.SCREEN_WIDTH, GameAcitivy.SCREEN_HEIGHT);
+		canvas2.drawBitmap(mViewBmp,tSrc, tDst, null);
 	}
-	
 }
 
 class JiaoTong {
