@@ -432,6 +432,10 @@ class GameState {
 	}
 	
 	public void update() {
+		if (mGame.mUpdateFrameId % 10 != 0) {
+			return;
+		}
+		
 		mCanvas.drawColor(Color.GREEN, Mode.CLEAR);
 		mPaint.setColor(Color.argb(200, 255, 20, 20));
 		float tX = 0;
