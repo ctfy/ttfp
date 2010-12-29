@@ -1,11 +1,12 @@
-# Android¿ª·¢ÖĞÈçºÎÉèÖÃ²¶×½´¥ÃşÊÂ¼ş
-Activity×ÓÀàÖĞÖØĞ´onTouchEvent·½·¨
-Èç£º
+# Androidå¼€å‘ä¸­å¦‚ä½•è®¾ç½®æ•æ‰è§¦æ‘¸äº‹ä»¶
+Activityå­ç±»ä¸­é‡å†™onTouchEventæ–¹æ³•
+å¦‚ï¼š
 @Override
 public boolean onTouchEvent(MotionEvent event) {
-    Log.v("a", event.getAction() == MotionEvent.ACTION_DOWN ? "ÊÖÖ¸°´ÏÂÊÂ¼ş");
-    Log.v("a", event.getAction() == MotionEvent.ACTION_UP ? "ÊÖÖ¸µ¯ÆğÊÂ¼ş");
+    Log.v("a", event.getAction() == MotionEvent.ACTION_DOWN ? "æ‰‹æŒ‡æŒ‰ä¸‹äº‹ä»¶");
+    Log.v("a", event.getAction() == MotionEvent.ACTION_UP ? "æ‰‹æŒ‡å¼¹èµ·äº‹ä»¶");
 }
 
-# AndroidÖĞÈçºÎ½áÊøµ±Ç°½ø³Ì
+# Androidä¸­å¦‚ä½•ç»“æŸå½“å‰è¿›ç¨‹
 android.os.Process.killProcess(android.os.Process.myPid());
+
