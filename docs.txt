@@ -6,3 +6,6 @@ public boolean onTouchEvent(MotionEvent event) {
     Log.v("a", event.getAction() == MotionEvent.ACTION_DOWN ? "手指按下事件");
     Log.v("a", event.getAction() == MotionEvent.ACTION_UP ? "手指弹起事件");
 }
+
+# Android中如何结束当前进程
+android.os.Process.killProcess(android.os.Process.myPid());
