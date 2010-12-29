@@ -26,8 +26,8 @@ import android.view.MotionEvent;
 import android.view.View;
 
 public class GameAcitivy extends Activity {
-	public static final int MENU_NEW_GAME = 0;//ĞÂÓÎÏ·
-	public static final int MENU_QUIT = 1;//ÍË³ö
+	public static final int MENU_NEW_GAME = 0;//æ–°æ¸¸æˆ
+	public static final int MENU_QUIT = 1;//é€€å‡º
 	
     private Game game;
     public void onCreate(Bundle savedInstanceState) {
@@ -66,8 +66,8 @@ public class GameAcitivy extends Activity {
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0, MENU_NEW_GAME, 1, "ÖØĞÂ¿ªÊ¼");
-		menu.add(0, MENU_QUIT, 1, "ÍË³ö");
+		menu.add(0, MENU_NEW_GAME, 1, "é‡æ–°å¼€å§‹");
+		menu.add(0, MENU_QUIT, 1, "é€€å‡º");
 		return super.onCreateOptionsMenu(menu);
 	}
 }
@@ -80,23 +80,23 @@ class Game extends View {
 	
 	public static Game mGame;
 	
-	/** ÓÎÏ·ÖĞÓÃµ½µÄÍ¼Æ¬µÄ²Ö¿â */
+	/** æ¸¸æˆä¸­ç”¨åˆ°çš„å›¾ç‰‡çš„ä»“åº“ */
 	private BitmapLib mBitmapLib;
 	
-	/** Àï²ã±³¾°£¬Â¥·¿¡¢ÂíÂ·¡¢½ÖµÀ */
+	/** é‡Œå±‚èƒŒæ™¯ï¼Œæ¥¼æˆ¿ã€é©¬è·¯ã€è¡—é“ */
 	public Bitmap mBackground;
-	/** ÓÎÏ·»­ÃæÖĞÏò×ó¿ªµÄÄÇĞ©³µÁ¾ */
+	/** æ¸¸æˆç”»é¢ä¸­å‘å·¦å¼€çš„é‚£äº›è½¦è¾† */
 	public JiaoTong mLeftJiaoTong;
-	/** ÓÎÏ·»­ÃæÖĞÏòÓÒ¿ªµÄÄÇĞ©³µÁ¾ */
+	/** æ¸¸æˆç”»é¢ä¸­å‘å³å¼€çš„é‚£äº›è½¦è¾† */
 	public JiaoTong mRightJiaoTong;
-	/** ÓÎÏ·ÖĞÍâÃæµÄÄÇ²ã±³¾°£¬ÓÎÏ·»­ÃæÏÂ²àÄÜÕÚµ²³µÁ¾µÄÍ¸Ã÷±³¾° */
+	/** æ¸¸æˆä¸­å¤–é¢çš„é‚£å±‚èƒŒæ™¯ï¼Œæ¸¸æˆç”»é¢ä¸‹ä¾§èƒ½é®æŒ¡è½¦è¾†çš„é€æ˜èƒŒæ™¯ */
 	public Bitmap mBackground2;
-	/** ÓÎÏ·ÖĞ×ó²àµÄÈË */
+	/** æ¸¸æˆä¸­å·¦ä¾§çš„äºº */
 	public LeftPerson mLeftPerson;
-	/** ÓÎÏ·ÖĞÓÒ²àµÄÈË */
+	/** æ¸¸æˆä¸­å³ä¾§çš„äºº */
 	public RightPerson mRightPerson;
 	public GameState mGameState;
-	/** ÓÎÏ·Ë¢ĞÂÏß³ÌÕë¼ÇÂ¼ */
+	/** æ¸¸æˆåˆ·æ–°çº¿ç¨‹é’ˆè®°å½• */
 	public int mUpdateFrameId = 0;
 	
 	public Game(Context context) {
@@ -118,9 +118,9 @@ class Game extends View {
         
         mGameState = GameState.createGameState(this);
         
-        // Æô¶¯½ø¶È¸üĞÂÏß³Ì
+        // å¯åŠ¨è¿›åº¦æ›´æ–°çº¿ç¨‹
         new Thread(updateRunnable).start();
-        // Æô¶¯½çÃæÖØ»æÏß³Ì
+        // å¯åŠ¨ç•Œé¢é‡ç»˜çº¿ç¨‹
         new Thread(drawRunnable).start();
 	}
 		
@@ -141,7 +141,7 @@ class Game extends View {
 		@Override
 		public void run() {
 			while(mGameState.mIsRun) {
-				//¸üĞÂ¸üĞÂÏß³ÌÕë
+				//æ›´æ–°æ›´æ–°çº¿ç¨‹é’ˆ
 				Game.this.mUpdateFrameId++;
 				
 //				mLeftJiaoTong.update();
@@ -175,9 +175,9 @@ class Game extends View {
 	
 	public void onDraw(Canvas canvas) {
 		canvas.drawColor(Color.BLACK);
-		//»­±³¾°
+		//ç”»èƒŒæ™¯
 		canvas.drawBitmap(mBackground, 0f, 0f, null);
-		//µÚÒ»ÅÅ³µ
+		//ç¬¬ä¸€æ’è½¦
 		ArrayList<Car> cars = mLeftJiaoTong.getCars();
 		
 		Car tmpCar = null;
@@ -185,19 +185,19 @@ class Game extends View {
 			tmpCar = cars.get(i);
 			canvas.drawBitmap(tmpCar.mImage, tmpCar.mX, tmpCar.mY, null);
 		}
-		//µÚ¶şÅÅ³µ
+		//ç¬¬äºŒæ’è½¦
 		cars = mRightJiaoTong.getCars();
 		for (int i = 0; i < cars.size(); i++) {
 			tmpCar = cars.get(i);
 			canvas.drawBitmap(tmpCar.mImage, tmpCar.mX, tmpCar.mY, null);
 		}
-		//»­µÚ¶ş²ã±³¾°
+		//ç”»ç¬¬äºŒå±‚èƒŒæ™¯
 		canvas.drawBitmap(mBackground2, 0f, 0f, null);
-		//»­ÈËÎï1
+		//ç”»äººç‰©1
 		canvas.drawBitmap(mLeftPerson.getImage(), mLeftPerson.mX, mLeftPerson.mY, null);
-		//»­ÈËÎï2
+		//ç”»äººç‰©2
 		canvas.drawBitmap(mRightPerson.getImage(), mRightPerson.mX, mRightPerson.mY, null);
-		//»­ÓÎÏ·×´Ì¬		
+		//ç”»æ¸¸æˆçŠ¶æ€		
 		canvas.drawBitmap(mGameState.getImage(), mGameState.mX, mGameState.mY, null);
 	}
 	
@@ -215,10 +215,10 @@ class JiaoTong {
 			mCars.get(i).update();
 		}
 
-		/** ÏÂÃæ²½Öè±£Ö¤Ëæ»úÌí¼ÓÏò³µµÀÖĞËæ»ú³µÁ¾ */
+		/** ä¸‹é¢æ­¥éª¤ä¿è¯éšæœºæ·»åŠ å‘è½¦é“ä¸­éšæœºè½¦è¾† */
 		if (mCars.size() < 3) {
 			Random r = new Random(System.currentTimeMillis());
-			int i = r.nextInt(200) - 199; // ¸ºÖµµÄÊ±ºò²»Ìí¼Ó³µÁ¾
+			int i = r.nextInt(200) - 199; // è´Ÿå€¼çš„æ—¶å€™ä¸æ·»åŠ è½¦è¾†
 			if (i > -1) {
 				Car c = new Car(this);
 				mCars.add(c);
@@ -260,24 +260,24 @@ class Car {
 	}
 	private JiaoTong mJiaoTong;
 	
-	/** ÓÎÏ·Í¼ĞÎ¿â */
+	/** æ¸¸æˆå›¾å½¢åº“ */
 	private BitmapLib mBitmapLib = BitmapLib.createBitmapLib(null);
 	
-	/** ÕâÁ¾³µµÄÍ¼Æ¬ */
+	/** è¿™è¾†è½¦çš„å›¾ç‰‡ */
 	public Bitmap mImage;
-	/** ÕâÁ¾³µĞÎÊ½µÄËÙ¶È, ÕıÖµ±íÊ¾ÍùÓÒ£¬¸ºÖµ±íÊ¾Íù×ó */
+	/** è¿™è¾†è½¦å½¢å¼çš„é€Ÿåº¦, æ­£å€¼è¡¨ç¤ºå¾€å³ï¼Œè´Ÿå€¼è¡¨ç¤ºå¾€å·¦ */
 	public int mSpeed;
-	/** µ±Ç°ÔÚx×ø±êµÄÎ»ÖÃ */
+	/** å½“å‰åœ¨xåæ ‡çš„ä½ç½® */
 	public int mX;
-	/** µ±Ç°ÔÚy×ø±êµÄÎ»ÖÃ */
+	/** å½“å‰åœ¨yåæ ‡çš„ä½ç½® */
 	public int mY;
-	/** ´Ë³µÔÚÆÁÄ»ÉÏÕ¼µÄ¿í¶È */
+	/** æ­¤è½¦åœ¨å±å¹•ä¸Šå çš„å®½åº¦ */
 	public int mWidth;
-	/** ´Ë³µÔÚÆÁÄ»ÉÏÕ¼µÃ¸ß¶È */
+	/** æ­¤è½¦åœ¨å±å¹•ä¸Šå å¾—é«˜åº¦ */
 	public int mHeight;
 	
 	
-	//¼ÆËãĞÂÎ»ÖÃ
+	//è®¡ç®—æ–°ä½ç½®
 	public void update() {
 		if (mSpeed > 0 && mX > Game.WIDTH) {
 			mJiaoTong.getCars().remove(this);
@@ -311,7 +311,7 @@ abstract class Person {
 
 class LeftPerson extends Person {
 
-	/** ÓÎÏ·×´Ì¬µ¥Àı */
+	/** æ¸¸æˆçŠ¶æ€å•ä¾‹ */
 	private GameState mGameState;
 	private BitmapLib mBitmapLib = BitmapLib.createBitmapLib(null);
 	public LeftPerson(Game game) {
@@ -329,20 +329,20 @@ class LeftPerson extends Person {
 
 class RightPerson extends Person {
 	private Game mGame;
-	/** ×î´óÆ¨Á¿ */
+	/** æœ€å¤§å±é‡ */
 	private int mMaxPi;
 	public int getMaxPi() {
 		return mMaxPi;
 	}
 
-	/** µ±Ç°Æ¨Á¿ */
+	/** å½“å‰å±é‡ */
 	private int mCurrentPi;
 	public int getCurrentPi() {
 		return mCurrentPi;
 	}
-	/** ÓÎÏ·×´Ì¬µ¥Àı */
+	/** æ¸¸æˆçŠ¶æ€å•ä¾‹ */
 	private GameState mGameState;
-	/** ÊÇ·ñÕıÔÚ·ÅÆ¨ */
+	/** æ˜¯å¦æ­£åœ¨æ”¾å± */
 	private boolean mPiGoing = false;
 	public boolean getPiGoding() {
 		return mPiGoing;
@@ -368,12 +368,12 @@ class RightPerson extends Person {
 			mGame.gameOver();
 		}
 		
-		if (!mPiGoing) {//²»ÊÇÕıÔÚ·ÅÆ¨µÄ×´Ì¬
+		if (!mPiGoing) {//ä¸æ˜¯æ­£åœ¨æ”¾å±çš„çŠ¶æ€
 			if (0 == mGame.mUpdateFrameId % 4) {
-				mCurrentPi += 1;//Æ¨Á¿Ôö³¤
+				mCurrentPi += 1;//å±é‡å¢é•¿
 			}
 			
-			/** Èç¹ûµ±Ç°Æ¨Á¿³¬¹ıÁË×î´óÆ¨Á¿Ôò½«ÓÎÏ·×´Ì¬ÉèÖÃÎªfalse */
+			/** å¦‚æœå½“å‰å±é‡è¶…è¿‡äº†æœ€å¤§å±é‡åˆ™å°†æ¸¸æˆçŠ¶æ€è®¾ç½®ä¸ºfalse */
 			if (mCurrentPi > mMaxPi) {
 				mGameState.mIsRun = false;
 				mGame.gameOver();
@@ -390,7 +390,7 @@ class RightPerson extends Person {
 				this.setImage(mBitmapLib.rightPerson1);
 			}
 		}
-		else {//ÊÇ·ÅÆ¨×´Ì¬, Ôò½«ÅúÁ¿¼õÉÙ
+		else {//æ˜¯æ”¾å±çŠ¶æ€, åˆ™å°†æ‰¹é‡å‡å°‘
 			mCurrentPi -= 1;
 			mCurrentPi = mCurrentPi < 0 ? 0 : mCurrentPi;
 		}
@@ -408,7 +408,7 @@ class GameState {
 	private Paint mPaint;
 	private GameState(Game game) {
 		mGame = game;
-		mIsRun = true;//½«ÓÎÏ·×´Ì¬ÉèÖÃ³É¿ª
+		mIsRun = true;//å°†æ¸¸æˆçŠ¶æ€è®¾ç½®æˆå¼€
 		mY = 300;
 		mImage = Bitmap.createBitmap(Game.WIDTH, 100, Config.ARGB_8888);
 		mCanvas = new Canvas(mImage);
@@ -453,7 +453,7 @@ class GameState {
 		}
 		mPaint.setTextSize(24f);
 		mPaint.setColor(Color.BLACK);
-		String showText = String.format("ÄãÒÑ¾­±ïÁË %sºÁÉıµÄÆ¨£¬ÔÙ²»·Å¾Í±ïËÀÁË", mGame.mRightPerson.getCurrentPi() - 1);
+		String showText = String.format("ä½ å·²ç»æ†‹äº† %sæ¯«å‡çš„å±ï¼Œå†ä¸æ”¾å°±æ†‹æ­»äº†", mGame.mRightPerson.getCurrentPi() - 1);
 		mCanvas.drawText(showText, 55, 70, mPaint);
 	}
 }
@@ -471,40 +471,40 @@ class BitmapLib extends View{
 		return mBitmapLib;
 	}
 
-	/** ±³¾°1 */
+	/** èƒŒæ™¯1 */
 	public Bitmap background = BitmapFactory.decodeResource(this.getResources(), R.drawable.background);
-	/** ±³¾°2 */
+	/** èƒŒæ™¯2 */
 	public Bitmap background2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.background2);
 	
 
-	/** ×ó²àÈËÎïµÚÒ»¸ö×´Ì¬ */
+	/** å·¦ä¾§äººç‰©ç¬¬ä¸€ä¸ªçŠ¶æ€ */
 	public Bitmap leftPerson1 = BitmapFactory.decodeResource(this.getResources(), R.drawable.left_person_1);
-	/** ×ó²àÈËÎïµÚ¶ş¸ö×´Ì¬ */
+	/** å·¦ä¾§äººç‰©ç¬¬äºŒä¸ªçŠ¶æ€ */
 	public Bitmap leftPerson2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.left_person_2);
-	/** ×ó²àÈËÎïµÚÈı¸ö×´Ì¬ */
+	/** å·¦ä¾§äººç‰©ç¬¬ä¸‰ä¸ªçŠ¶æ€ */
 	public Bitmap leftPerson3 = BitmapFactory.decodeResource(this.getResources(), R.drawable.left_person_3);
 	
 	
-	/** ÓÒ²àÈËÎïµÚÒ»¸ö×´Ì¬ */
+	/** å³ä¾§äººç‰©ç¬¬ä¸€ä¸ªçŠ¶æ€ */
 	public Bitmap rightPerson1 = BitmapFactory.decodeResource(this.getResources(), R.drawable.right_person_1);
-	/** ÓÒ²àÈËÎïµÚ¶ş¸ö×´Ì¬ */
+	/** å³ä¾§äººç‰©ç¬¬äºŒä¸ªçŠ¶æ€ */
 	public Bitmap rightPerson2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.right_person_2);
-	/** ÓÒ²àÈËÎïµÚÈı¸ö×´Ì¬ */
+	/** å³ä¾§äººç‰©ç¬¬ä¸‰ä¸ªçŠ¶æ€ */
 	public Bitmap rightPerson3 = BitmapFactory.decodeResource(this.getResources(), R.drawable.right_person_3);
-	/** ÓÒ²àÈËÎïµÚËÄ¸ö×´Ì¬ */
+	/** å³ä¾§äººç‰©ç¬¬å››ä¸ªçŠ¶æ€ */
 	public Bitmap rightPerson4 = BitmapFactory.decodeResource(this.getResources(), R.drawable.right_person_4);
-	/** ÓÒ²àÈËÎïµÚÎå¸ö×´Ì¬ */
+	/** å³ä¾§äººç‰©ç¬¬äº”ä¸ªçŠ¶æ€ */
 	public Bitmap rightPerson5 = BitmapFactory.decodeResource(this.getResources(), R.drawable.right_person_5);
 	
 	
-	/** µÚÒ»ÖÖÆû³µ */
+	/** ç¬¬ä¸€ç§æ±½è½¦ */
 	public Bitmap car1 = BitmapFactory.decodeResource(this.getResources(), R.drawable.car1);
-	/** µÚ¶şÖÖÆû³µ */
+	/** ç¬¬äºŒç§æ±½è½¦ */
 	public Bitmap car2 = BitmapFactory.decodeResource(this.getResources(), R.drawable.car2);
-	/** µÚÈıÖÖÆû³µ */
+	/** ç¬¬ä¸‰ç§æ±½è½¦ */
 	public Bitmap car3 = BitmapFactory.decodeResource(this.getResources(), R.drawable.car3);
-	/** µÚËÄÖÖÆû³µ */
+	/** ç¬¬å››ç§æ±½è½¦ */
 	public Bitmap car4 = BitmapFactory.decodeResource(this.getResources(), R.drawable.car4);
-	/** µÚÎåÖÖÆû³µ */
+	/** ç¬¬äº”ç§æ±½è½¦ */
 	public Bitmap car5 = BitmapFactory.decodeResource(this.getResources(), R.drawable.car5);
 }
