@@ -10,3 +10,27 @@ public boolean onTouchEvent(MotionEvent event) {
 # Android中如何结束当前进程
 android.os.Process.killProcess(android.os.Process.myPid());
 
+# Android开发中使用菜单
+1 在Activity的子类中重写onCreateOptionsMenu方法添加菜单键相应，并添加相应的菜单项
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(0, MENU_NEW_GAME, 1, "重新开始");
+        menu.add(0, MENU_QUIT, 1, "退出");
+        return super.onCreateOptionsMenu(menu);
+    }
+2 重写Activity子类的onCreateOptionsMenu方法，相应菜单被选中时进行相应的操作
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case 1:
+            //执行相应操作...
+            break;
+        case 2:
+            //执行相应操作...
+            break;
+        default:
+            break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
