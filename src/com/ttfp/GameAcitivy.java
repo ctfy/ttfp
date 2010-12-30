@@ -470,7 +470,10 @@ class GameState {
 		}
 		mPaint.setTextSize(24f);
 		mPaint.setColor(Color.BLACK);
-		String showText = String.format("你已经憋了 %s毫升的屁，再不放就憋死了", mGame.mRightPerson.getCurrentPi() - 1);
+		int tPrintPi = mGame.mRightPerson.getCurrentPi();
+		tPrintPi = tPrintPi >=100 ? 100 : tPrintPi;
+		tPrintPi = tPrintPi <=0 ? 0 : tPrintPi;
+		String showText = String.format("你已经憋了 %s毫升的屁，再不放就憋死了", tPrintPi);
 		mCanvas.drawText(showText, 55, 70, mPaint);
 	}
 }
