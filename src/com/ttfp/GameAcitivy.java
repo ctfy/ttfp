@@ -430,6 +430,7 @@ class GameState {
 		mImage = Bitmap.createBitmap(Game.WIDTH, 100, Config.ARGB_8888);
 		mCanvas = new Canvas(mImage);
 		mPaint = new Paint();
+		mPaint.setAntiAlias(true);
 		mPaint.setColor(Color.RED);
 	}
 	
