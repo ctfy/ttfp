@@ -296,7 +296,7 @@ class Car {
 	
 	//计算新位置
 	public void update() {
-		if (mSpeed > 0 && mX > Game.WIDTH) {
+		if (mSpeed > 0 && mX > GameAcitivy.SCREEN_WIDTH) {
 			mJiaoTong.getCars().remove(this);
 		}
 		else if (mSpeed < 0 && mX < (0 - mWidth)) {
