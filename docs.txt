@@ -1,4 +1,4 @@
-# Android开发中如何设置捕捉触摸事件
+﻿# Android开发中如何设置捕捉触摸事件
 Activity子类中重写onTouchEvent方法
 如：
 @Override
@@ -34,3 +34,15 @@ android.os.Process.killProcess(android.os.Process.myPid());
         return super.onOptionsItemSelected(item);
     }
 
+# Android如何提醒View控件重回
+调用 postInvalidate() 之后系统将调用onDraw(Canvas c) 方法重绘
+
+# Android如何设置全屏
+在Activity的onCreate函数中添加下面两行（需要在setContentView调用之前添加）
+requestWindowFeature(Window.FEATURE_NO_TITLE);
+getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+# Android如何获取窗口宽度和高度
+Display tDisplay = this.getWindowManager().getDefaultDisplay();
+int screenWidth = tDisplay.getWidth();
+int screenHeight = tDisplay.getHeight();
