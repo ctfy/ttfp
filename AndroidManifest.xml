@@ -11,6 +11,4 @@
 		</activity>
 
 	</application>
-	<supports-screens android:largeScreens="true"
-		android:anyDensity="true" />
 </manifest> 
