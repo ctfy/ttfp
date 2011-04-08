@@ -9,6 +9,40 @@ package com.ttfp;
 
 public final class R {
     public static final class attr {
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int backgroundColor=0x7f010000;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int refreshInterval=0x7f010003;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int testing=0x7f010002;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int textColor=0x7f010001;
     }
     public static final class drawable {
         public static final int background=0x7f020000;
@@ -28,6 +62,10 @@ public final class R {
         public static final int right_person_4=0x7f02000e;
         public static final int right_person_5=0x7f02000f;
     }
+    public static final class id {
+        public static final int game=0x7f050001;
+        public static final int mainLayout=0x7f050000;
+    }
     public static final class layout {
         public static final int main=0x7f030000;
     }
@@ -35,4 +73,83 @@ public final class R {
         public static final int app_name=0x7f040001;
         public static final int hello=0x7f040000;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a com_wooboo_adlib_android_WoobooAdView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #com_wooboo_adlib_android_WoobooAdView_backgroundColor com.ttfp:backgroundColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #com_wooboo_adlib_android_WoobooAdView_refreshInterval com.ttfp:refreshInterval}</code></td><td></td></tr>
+           <tr><td><code>{@link #com_wooboo_adlib_android_WoobooAdView_testing com.ttfp:testing}</code></td><td></td></tr>
+           <tr><td><code>{@link #com_wooboo_adlib_android_WoobooAdView_textColor com.ttfp:textColor}</code></td><td></td></tr>
+           </table>
+           @see #com_wooboo_adlib_android_WoobooAdView_backgroundColor
+           @see #com_wooboo_adlib_android_WoobooAdView_refreshInterval
+           @see #com_wooboo_adlib_android_WoobooAdView_testing
+           @see #com_wooboo_adlib_android_WoobooAdView_textColor
+         */
+        public static final int[] com_wooboo_adlib_android_WoobooAdView = {
+            0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.ttfp.R.attr#backgroundColor}
+          attribute's value can be found in the {@link #com_wooboo_adlib_android_WoobooAdView} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:backgroundColor
+        */
+        public static final int com_wooboo_adlib_android_WoobooAdView_backgroundColor = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.ttfp.R.attr#refreshInterval}
+          attribute's value can be found in the {@link #com_wooboo_adlib_android_WoobooAdView} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:refreshInterval
+        */
+        public static final int com_wooboo_adlib_android_WoobooAdView_refreshInterval = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.ttfp.R.attr#testing}
+          attribute's value can be found in the {@link #com_wooboo_adlib_android_WoobooAdView} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:testing
+        */
+        public static final int com_wooboo_adlib_android_WoobooAdView_testing = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.ttfp.R.attr#textColor}
+          attribute's value can be found in the {@link #com_wooboo_adlib_android_WoobooAdView} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name android:textColor
+        */
+        public static final int com_wooboo_adlib_android_WoobooAdView_textColor = 1;
+    };
 }

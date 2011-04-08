@@ -1,4 +1,4 @@
-package com.ttfp;
+package com.ttfp.util;
 
 /*
  * 游戏时间管理类（单例）
