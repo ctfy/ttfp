@@ -1,6 +1,9 @@
 package com.ttfp;
 
+import java.security.spec.MGF1ParameterSpec;
+
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,7 +21,9 @@ public class GameAcitivy extends Activity {
 	public static int SCREEN_HEIGHT;
 	public static final int MENU_NEW_GAME = 0;// 新游戏
 	public static final int MENU_QUIT = 1;// 退出
-
+	public static final int MENU_ENABLE_VIBRATE = 2;// 启用震动
+	public static final int MENU_ENABLE_SOUND = 3;// 启用声音控制
+	
 	private Game game;
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -55,16 +60,27 @@ public class GameAcitivy extends Activity {
 		case MENU_QUIT:
 			android.os.Process.killProcess(android.os.Process.myPid());
 			break;
+		case MENU_ENABLE_VIBRATE:
+			game.mEnableVibrate = !game.mEnableVibrate;
+			break;
 		default:
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		menu.findItem(MENU_ENABLE_VIBRATE).setTitle(game.mEnableVibrate ? "关闭震动" : "打开震动");
+		return super.onPrepareOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add(0, MENU_NEW_GAME, 1, "重新开始");
 		menu.add(0, MENU_QUIT, 1, "退出");
+		menu.add(0, MENU_ENABLE_SOUND, 1, "关闭声控");
+		menu.add(0, MENU_ENABLE_VIBRATE, 1, game.mEnableVibrate ? "关闭震动" : "打开震动");
 		return super.onCreateOptionsMenu(menu);
 	}
 }

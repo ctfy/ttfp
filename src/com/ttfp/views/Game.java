@@ -26,6 +26,9 @@ public class Game extends View {
 	public static int WIDTH;
 	public static int HEIGHT;
 
+	/** 震动是否启用 */
+	public static boolean mEnableVibrate = true;
+
 	public static Game mGame;
 
 	/** 游戏中用到的图片的仓库 */
@@ -86,22 +89,21 @@ public class Game extends View {
 
 	public void keyDown() {
 		mRightPerson.setPiGoing(true);
-		try {
-			mVibrator.vibrate(1000);
-		}
-		catch (Exception e) {
-			// TODO: handle exception
+		if (mEnableVibrate) {
+			try {
+				mVibrator.vibrate(1000);
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	public void keyUp() {
-		mVibrator.cancel();
-		try {
-			mRightPerson.setPiGoing(false);
+		if (mEnableVibrate) {
+			mVibrator.cancel();
 		}
-		catch (Exception e) {
-			// TODO: handle exception
-		}
+		mRightPerson.setPiGoing(false);
 	}
 
 	public Runnable updateRunnable = new Runnable() {
