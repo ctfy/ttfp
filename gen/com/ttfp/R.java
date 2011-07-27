@@ -61,10 +61,12 @@ containing a value of this type.
         public static final int right_person_3=0x7f02000d;
         public static final int right_person_4=0x7f02000e;
         public static final int right_person_5=0x7f02000f;
+        public static final int sound_control_tips=0x7f020010;
     }
     public static final class id {
         public static final int game=0x7f050001;
         public static final int mainLayout=0x7f050000;
+        public static final int sound_control_tips=0x7f050002;
     }
     public static final class layout {
         public static final int main=0x7f030000;

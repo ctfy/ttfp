@@ -27,7 +27,7 @@ public class Game extends View {
 	public static int HEIGHT;
 
 	/** 震动是否启用 */
-	public static boolean mEnableVibrate = true;
+	public static boolean mEnableVibrate = false;
 
 	public static Game mGame;
 
@@ -69,16 +69,25 @@ public class Game extends View {
 		mRightJiaoTong = new JiaoTong();
 
 		mBackground2 = mBitmapLib.background2;
-
 		mLeftPerson = new LeftPerson(this);
 		mRightPerson = new RightPerson(this);
-
 		mGameState = GameState.createGameState(this);
+	}
+	
+	public void start() {
 
 		// 启动进度更新线程
 		new Thread(updateRunnable).start();
 		// 启动界面重绘线程
 		new Thread(drawRunnable).start();
+	}
+	
+	/* 有限重新开始 */
+	public void restart() {
+		mLeftPerson.reset();
+		mRightPerson.reset();
+		mGameState.mIsRun = true;
+		start();
 	}
 
 	public void gameOver() {

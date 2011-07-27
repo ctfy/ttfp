@@ -75,4 +75,10 @@ public class RightPerson extends Person {
 		}
 
 	}
+	
+	/** 重置人物状态 */
+	public void reset() {
+		mCurrentPi = 0;
+		this.setImage(mBitmapLib.rightPerson1);
+	}
 }

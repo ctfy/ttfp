@@ -20,4 +20,8 @@ public class LeftPerson extends Person {
 	@Override
 	public void update() {
 	}
+	
+	public void reset() {
+		this.setImage(mBitmapLib.leftPerson1);
+	}
 }
