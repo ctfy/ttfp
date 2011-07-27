@@ -52,6 +52,7 @@ public class GameAcitivy extends Activity {
 		setSoundControlEnable(mEnableSound);
 
 		mSoundControlTips = (TextView)findViewById(R.id.sound_control_tips);
+		mSoundControlTips.setVisibility(View.GONE);
 		if (mEnableSound) {
 			showTips(true);
 		} else {
@@ -60,6 +61,7 @@ public class GameAcitivy extends Activity {
 	}
 	
 	private void showTips(final boolean startGame) {
+		mSoundControlTips.setVisibility(View.VISIBLE);
 		mSoundControlTips.postDelayed(new Runnable() {
 			@Override
 			public void run() {
