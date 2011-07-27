@@ -25,4 +25,12 @@
 			android:textColor="#000"
 			android:text="声控已经开始\r\n试试大声说话"/>
 	</LinearLayout>
+	
+	<RelativeLayout
+		android:id="@+id/pi_changed_tips"
+		android:gravity="right"
+		android:paddingRight="150dp"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent">
+	</RelativeLayout>
 </FrameLayout>

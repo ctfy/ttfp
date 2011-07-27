@@ -38,6 +38,7 @@ public class RecordThread extends Thread {
 			if (!isRun) {
 				try {
 					Thread.sleep(300);
+					continue;
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

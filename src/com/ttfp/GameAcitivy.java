@@ -1,21 +1,30 @@
 package com.ttfp;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ttfp.gameparts.RightPerson.IPiChanged;
+import com.ttfp.util.AppNetLogUtil;
 import com.ttfp.views.Game;
 import com.xxiyy.spl.RecordThread;
 import com.xxiyy.spl.RecordThread.ISoundSizeChanged;
@@ -29,7 +38,7 @@ public class GameAcitivy extends Activity {
 	public static final int MENU_ENABLE_SOUND = 3;// 启用声音控制
 	protected static final String TAG = GameAcitivy.class.getSimpleName();
 	private TextView mSoundControlTips;
-	
+	private ViewGroup mPiChangedViewGroup;
 	
 	private boolean mEnableSound = true;
 	private Game game;
@@ -52,12 +61,17 @@ public class GameAcitivy extends Activity {
 		setSoundControlEnable(mEnableSound);
 
 		mSoundControlTips = (TextView)findViewById(R.id.sound_control_tips);
+		mPiChangedViewGroup = (ViewGroup)findViewById(R.id.pi_changed_tips);
 		mSoundControlTips.setVisibility(View.GONE);
 		if (mEnableSound) {
 			showTips(true);
 		} else {
 			game.start();
 		}
+		
+		bindEvent();
+
+		AppNetLogUtil.log("GameActivity.onCreate()");
 	}
 	
 	private void showTips(final boolean startGame) {
@@ -108,13 +122,16 @@ public class GameAcitivy extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case MENU_NEW_GAME:
+			AppNetLogUtil.log("GameActivity.重开一局");
 			game.restart();
 //			Intent i = new Intent(this, GameAcitivy.class);
 //			startActivity(i);
 //			finish();
 			break;
 		case MENU_QUIT:
-			finish();
+			AppNetLogUtil.log("GameActivity.退出");
+			moveTaskToBack(true);
+//			finish();
 			break;
 		case MENU_ENABLE_SOUND:
 			mEnableSound = !mEnableSound;
@@ -122,9 +139,11 @@ public class GameAcitivy extends Activity {
 			if (mEnableSound) {
 				showTips(false);
 			}
+			AppNetLogUtil.log("GameActivity.声音控制" + (mEnableSound ? "关闭" : "打开"));
 			break;
 		case MENU_ENABLE_VIBRATE:
 			game.mEnableVibrate = !game.mEnableVibrate;
+			AppNetLogUtil.log("GameActivity.震动" + (game.mEnableVibrate ? "关闭" : "打开"));
 			break;
 		default:
 			break;
@@ -155,15 +174,84 @@ public class GameAcitivy extends Activity {
 		editor.putBoolean("EnableVibrate", game.mEnableVibrate);
 		editor.putBoolean("EnableSound", mEnableSound);
 		editor.commit();
+
+		AppNetLogUtil.log("GameActivity.onPause()");
 	}
 	
 	@Override
 	public void finish() {
+		AppNetLogUtil.log("GameActivity.finish()");
 		if (null != mRecordThread)
 			mRecordThread.destroy();
 		super.finish();
 //		android.os.Process.killProcess(android.os.Process.myPid());
 	}
+	
+	private void bindEvent() {
+		TmpIPiChanged onPiChanged = new TmpIPiChanged();
+		game.mRightPerson.addPiChangedEvent(onPiChanged);
+	}
+
+	
+	/** 当屁量改变时 */
+	class TmpIPiChanged implements IPiChanged {
+		private final int VIEW_BUFFER_COUNT = 5; //用于显示屁量改变的view的个数（轮询使用）
+		
+		private int tipsIndex = 0;
+		
+		public TmpIPiChanged() {
+			initPiChangedTips();
+		}
+		
+		@Override
+		public void morePi(int moreCount) {
+			// none
+		}
+		
+		@Override
+		public void lessPi(int lessCount) {
+			tmpMessage = "-" + lessCount;
+			mPiChangedViewGroup.post(runChangedPiTips);
+		}
+		public String tmpMessage = "";
+		private Runnable runChangedPiTips = new Runnable() {
+			int[] myColors = new int[] { Color.RED, Color.BLUE, Color.RED, Color.DKGRAY, Color.YELLOW, Color.CYAN };
+			Random r = new Random();
+			@Override
+			public void run() {
+				Log.e(TAG, tmpMessage);
+				int tmpIndex = (tipsIndex++) % VIEW_BUFFER_COUNT;
+				TextView tmp = piChangedTips.get(tmpIndex);
+				tmp.setVisibility(View.VISIBLE);
+				tmp.setText(tmpMessage);
+				tmp.setTextColor(myColors[r.nextInt(myColors.length -1)]);
+				Animation anim = AnimationUtils.loadAnimation(GameAcitivy.this, R.anim.pi_changed_tips);
+				tmp.startAnimation(anim);
+				hideViewHandler.sendEmptyMessageDelayed(tipsIndex, 3000);
+			}
+		};
+		
+		private Handler hideViewHandler = new Handler(Looper.getMainLooper()) {
+			public void handleMessage(android.os.Message msg) {
+				if (msg.what >=0 && msg.what < VIEW_BUFFER_COUNT) {
+					piChangedTips.get(msg.what).setVisibility(View.GONE);
+				}
+			};
+		};
+
+		// 显示屁量减少的view门
+		private List<TextView> piChangedTips = new ArrayList<TextView>();
+		private void initPiChangedTips() {
+			for (int i = 0; i < VIEW_BUFFER_COUNT; i++) {
+				TextView tv = new TextView(mPiChangedViewGroup.getContext());
+				tv.setPadding(0, 100, 0, 0);
+				tv.setTextSize(14);
+				tv.setTextColor(Color.GREEN);
+				mPiChangedViewGroup.addView(tv);
+				piChangedTips.add(tv);
+			}
+		}
+	};
 
 	////////////////////////////////////////////////////////////////////////////
 	//////////////////////////// 开始: 声音控制相关 ///////////////////////////////////
